@@ -1,0 +1,19 @@
+{
+  "name": "ReactNativeTypescript",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Ayoub ADIB <ayoub.adib.dev@gmail.com>",
+  "licence": "MIT",
+  "scripts": {
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react-native": "^0.18.0-rc"
+  },
+  "devDependencies": {
+    "concurrently": "^1.0.0",
+    "gulp": "^3.9.0",
+    "gulp-typescript": "^2.10.0",
+    "typescript": "^1.7.5"
+  }
+}

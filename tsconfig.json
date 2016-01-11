@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "jsx": "react",
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "outDir": "src",
+        "rootDir": "src",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "compileOnSave": true
+}
