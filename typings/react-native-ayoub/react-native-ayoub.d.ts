@@ -96,6 +96,9 @@ declare namespace JSX {
 
 declare module 'react-native' {
     //import React = ReactNamespace;
+    export class Component<P, S> extends React.Component<P,S> {}
+    export class Text extends React.Text {}
+    export class View extends React.View {}
     export default React;
 }
 
