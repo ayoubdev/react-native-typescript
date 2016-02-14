@@ -1,16 +1,33 @@
 var gulp = require('gulp');
-var ts = require('gulp-typescript');
+var gulpts = require('gulp-typescript');
+//minimist permet de gérer lesguments en ligne de
+//commande à partir d'une liste de commandes connues que l'on renseigne:
+var minimist = require('minimist');
 
-var tsProject = ts.createProject('tsconfig.json');
+//Création du projet build/watch typescript module gulp:
+var tsProject = gulpts.createProject('tsconfig.json');
+//Récupération des arguments cmd:
+var listOptions = {
+	string: 'rootDir',
+	default: {rootDir: '.'}
+};
+var options = minimist(process.argv.slice(2), listOptions);
+//console.log(process.argv);
+//console.log(options.rootDir);
 
-gulp.task('build', function() {
-    var tsResult = tsProject.src().pipe(ts(tsProject));
-    return tsResult.js.pipe(gulp.dest('src'));
+//Définition des tâches:
+//Build:
+gulp.task('ts:build', function() {
+	var tsResult = tsProject.src() // instead of gulp.src(...)
+		.pipe(gulpts(tsProject));
+
+	return tsResult.js.pipe(gulp.dest(options.rootDir));
+});
+//Watch si changement:
+gulp.task('ts:watch', ['ts:build'], function() {
+	gulp.watch(options.rootDir+'/**/*.ts', ['ts:build']);
+	gulp.watch(options.rootDir+'/**/*.tsx', ['ts:build']);
 });
 
-gulp.task('watch', ['build'], function() {
-  gulp.watch('src/**/*.ts', ['build']);
-  gulp.watch('src/**/*.tsx', ['build']);
-});
-
-gulp.task('default', ['build']);
+//Tâche par défaut
+gulp.task('default', ['ts:build']);
