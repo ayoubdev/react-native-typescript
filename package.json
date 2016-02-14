@@ -2,18 +2,21 @@
   "name": "ReactNativeTypescript",
   "version": "0.0.1",
   "private": true,
-  "author": "Ayoub ADIB <ayoub.adib.dev@gmail.com>",
+  "author": "Ayoub ADIB <ayoub.development@gmail.com>",
   "licence": "MIT",
   "scripts": {
+    "transpileConfig": "tsc --init --module es2015 --t ES6 --allowJs --jsx react --noImplicitAny --noImplicitReturns --preserveConstEnums --experimentalDecorators --removeComments --sourceMap",
+    "transpileDefinition": "tsd init && tsd install react --save",
+    "postinstall": "npm run transpileConfig && npm run transpileDefinition",
+    "transpile": "tsc -p ./ --outDir ./ -w",
     "start": "react-native start"
   },
   "dependencies": {
-    "react-native": "^0.18.0-rc"
+    "react-native": "^0.19.0"
   },
   "devDependencies": {
-    "concurrently": "^1.0.0",
-    "gulp": "^3.9.0",
-    "gulp-typescript": "^2.10.0",
-    "typescript": "^1.7.5"
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.11.0",
+    "typescript": "^1.8.0"
   }
 }

@@ -37,4 +37,7 @@ npm-debug.log
 # Custom ignore 
 # Typescript transpilation results
 src/*.js
-src/*.map
+**/*.map
+
+# Android:
+**/*.bundle

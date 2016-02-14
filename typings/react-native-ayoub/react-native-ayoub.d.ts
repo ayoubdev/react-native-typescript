@@ -4,10 +4,10 @@
 //On aurait très bien pu faire les mettre sous un même declare namespace mais dans un soucis de clarté
 //et pour une meilleure maintenance (dans le cas où on dissociera dans 2 fichiers d.ts différents), il est
 //mieux de faire un appel dupliqué à declare namespace React:
-declare namespace React {
-    /*
-        REACT API:
-     */
+
+
+/*declare namespace React {
+    //REACT API:
     //?: <=> paramètre optionnel:
     export class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
@@ -91,26 +91,36 @@ declare namespace JSX {
         //Text: {toto?:string};
     }
 }
+*/
 
 
+
+
+
+
+//REACT.JS API:
+/// <reference path="../react/react.d.ts" />
+
+
+declare namespace __React {
+    export class Text extends Component<any, any> {
+        render(): ReactElement<any>;
+    }
+
+    export class View extends Component<any, any> {
+        render(): ReactElement<any>;
+    }
+}
 
 declare module 'react-native' {
-    //import React = ReactNamespace;
+    import React = __React;
     export class Component<P, S> extends React.Component<P,S> {}
     export class Text extends React.Text {}
     export class View extends React.View {}
+    export var PropTypes: React.ReactPropTypes;
+
     export default React;
 }
-
-
-
-
-
-
-
-
-
-
 
 /*
 //exemple d.ts avec modules:

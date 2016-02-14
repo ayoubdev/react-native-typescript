@@ -1,25 +1,26 @@
 /*
-Note: This must be compiled with the target set to ES6
-The content of index.io.js could be something like
-    'use strict';
-     import { AppRegistry } from 'react-native'
-     import Welcome from './gen/Welcome'
-     AppRegistry.registerComponent('MopNative', () => Welcome);
-For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
+ Note: This must be compiled with the target set to ES6
  */
-import React from "react-native";
-import {Component, Text, View} from "react-native";
 
-class App extends Component<any, any> {
-    render() {
-        return (
-            <View>
-                <Text>
-                    Test Typescript React-Native
-                </Text>
-            </View>
-        )
-    }
+import React, {View, Text} from "react-native";
+import {PropTypes} from "react-native";
+
+class App extends React.Component<any, any> {
+	static propTypes = {
+		backgroundColor: PropTypes.string,
+		textColor: PropTypes.string,
+		text: PropTypes.string,
+		textSize: PropTypes.number
+	};
+	render() {
+		return (
+			<View>
+				<Text>
+					Test Typescript React-Native Ayoub
+				</Text>
+			</View>
+		)
+	}
 }
 
-export default App
+export default App;
