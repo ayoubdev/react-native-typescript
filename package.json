@@ -10,11 +10,11 @@
     "gulp:ts:watch": "gulp ts:watch --rootDir .",
     "ts:config": "tsc --init --module es2015 --t ES6 --allowJs --jsx react --noImplicitAny --noImplicitReturns --preserveConstEnums --experimentalDecorators --removeComments --sourceMap",
     "ts:definition": "tsd init && tsd install react --save",
-    "tsc:build": "tsc -p ./ --outDir ./",
-    "tsc:watch": "tsc -p ./ --outDir ./ -w",
-    "start": "concurrent \"npm run tsc:watch\" \"react-native start\"",
-    "android": "npm run tsc:build && react-native run-android",
-    "ios": "npm run tsc:build && react-native run-ios"
+    "ts:build": "tsc -p ./ --outDir ./",
+    "ts:watch": "tsc -p ./ --outDir ./ -w",
+    "start": "concurrent \"npm run ts:watch\" \"react-native start\"",
+    "android": "npm run ts:build && react-native run-android",
+    "ios": "npm run ts:build && react-native run-ios"
   },
   "dependencies": {
     "react-native": "^0.19.0"
