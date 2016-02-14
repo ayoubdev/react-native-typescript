@@ -103,17 +103,18 @@ declare namespace JSX {
 
 
 declare namespace __React {
-    export class Text extends Component<any, any> {
+    class Text extends Component<any, any> {
         render(): ReactElement<any>;
     }
 
-    export class View extends Component<any, any> {
+    class View extends Component<any, any> {
         render(): ReactElement<any>;
     }
 }
 
 declare module 'react-native' {
     import React = __React;
+
     export class Component<P, S> extends React.Component<P,S> {}
     export class Text extends React.Text {}
     export class View extends React.View {}

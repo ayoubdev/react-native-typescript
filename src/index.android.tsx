@@ -2,16 +2,13 @@
  Note: This must be compiled with the target set to ES6
  */
 
-import React, {View, Text} from "react-native";
-import {PropTypes} from "react-native";
+import React, {View, Text, PropTypes} from "react-native";
 
 class App extends React.Component<any, any> {
 	static propTypes = {
-		backgroundColor: PropTypes.string,
-		textColor: PropTypes.string,
-		text: PropTypes.string,
-		textSize: PropTypes.number
+		testPropTypes: PropTypes.string
 	};
+
 	render() {
 		return (
 			<View>
