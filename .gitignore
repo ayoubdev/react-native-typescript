@@ -41,3 +41,8 @@ src/*.js
 
 # Android:
 **/*.bundle
+
+# Typescript:
+tsconfig.json
+tsd.json
+typings/react

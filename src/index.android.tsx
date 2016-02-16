@@ -1,5 +1,5 @@
 /*
- Note: This must be compiled with the target set to ES6
+	Typescript target version: ES6 (to allow Babel and Webpack to read and bundle js transpiled file)
  */
 
 import React, {View, Text, PropTypes} from "react-native";
@@ -11,7 +11,7 @@ class App extends React.Component<any, any> {
 
 	render() {
 		return (
-			<View>
+			<View onAccessibilityTap={() => {}}>
 				<Text>
 					Test Typescript React-Native Ayoub
 				</Text>

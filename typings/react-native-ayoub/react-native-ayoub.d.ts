@@ -5,127 +5,79 @@
 //et pour une meilleure maintenance (dans le cas où on dissociera dans 2 fichiers d.ts différents), il est
 //mieux de faire un appel dupliqué à declare namespace React:
 
-
-/*declare namespace React {
-    //REACT API:
-    //?: <=> paramètre optionnel:
-    export class Component<P, S> implements ComponentLifecycle<P, S> {
-        constructor(props?: P, context?: any);
-        setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
-        setState(state: S, callback?: () => any): void;
-        forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element;
-        props: P;
-        state: S;
-        context: {};
-        refs: {
-            [key: string]: Component<any, any>
-        };
-    }
-
-    export interface ComponentLifecycle<P, S> {
-        getInitialState?(): S;
-        componentWillMount?(): void;
-        componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S): void;
-        componentDidUpdate?(prevProps: P, prevState: S): void;
-        componentWillUnmount?(): void;
-    }
-
-    interface Props<T> {
-        key?: string | number;
-        ref?: string | ((component: T) => any);
-    }
-
-    interface ReactElement<P extends Props<any>> {
-        type: string;
-        props: P;
-        key: string | number;
-        ref: string | ((component: Component<P, any> | Element) => any);
-    }
-}
-
-//Définition pour React Native
-declare namespace React {
-    //Text test:
-    export interface TextProperties<T> extends Props<T> {
-        numberOfLines?: number
-        onPress?: () => void
-        testID?: string
-    }
-    export class Text extends Component<any, any> {
-        render(): JSX.ElementClass;
-    }
-
-    export class View extends Component<any, any> {
-        render(): JSX.ElementClass;
-    }
-}
-
-//cf. https://github.com/Microsoft/TypeScript/wiki/JSX
-declare namespace JSX {
-    import ReactNamespace = React;
-
-    //Element définit le type de notre composant JSX
-    interface Element extends ReactNamespace.Component<any, any> { }
-    //ElementClass définit l'instance, l'objet de notre composant JSX, on étend Component,
-    //pour que ElementClass ait un constructeur...
-    interface ElementClass extends ReactNamespace.Component<any, any> {
-        render(): JSX.Element;
-    }
-    interface ElementAttributesProperty { props: {}; }
-
-    interface IntrinsicAttributes {
-        key?: string | number;
-    }
-
-    interface IntrinsicClassAttributes<T> {
-        ref?: string | ((classInstance: T) => void);
-    }
-
-    interface IntrinsicElements {
-        //a: React.HTMLProps<HTMLAnchorElement>;
-        Text: ReactNamespace.TextProperties<any>;
-        //Text: {toto?:string};
-    }
-}
-*/
-
-
-
-
-
-
 //REACT.JS API:
 /// <reference path="../react/react.d.ts" />
 
-
+//Pour plus de détails d.ts JSX: https://github.com/Microsoft/TypeScript/wiki/JSX
 declare namespace __React {
-    class Text extends Component<any, any> {
-        render(): ReactElement<any>;
-    }
+	//PROPERTIES:
+	//Définition propriétés <View/>:
+	interface ViewProps {
+		accessibilityLabel?:string,
+		accessible?:boolean,
+		onAccessibilityTap?:()=>void
+	}
 
-    class View extends Component<any, any> {
-        render(): ReactElement<any>;
-    }
+	//COMPONENTS:
+	class Text extends Component<any, any> {
+	}
+
+	class View extends Component<ViewProps, any> {
+	}
+
+	/*
+	//class View extends Component<ViewProps, any> équivalent à:
+	class View extends Component<any, any> {
+		props: {
+			testprop:string
+		}
+		render():JSX.Element;
+	}
+	*/
+}
+
+declare namespace JSX {
+	/*
+	//Les éléments intrinsèques permettent de définir rapidement des
+	//éléments dom, vues... n'étant pas des composants
+	//(par exemple, balises HTML pour react.js (cf. react.d.ts))
+	//Les éléments intrisèques sont émis comme string par React (React.createElement("div"))
+	//contre React.createElement(MyComponent) pour un composant
+	//cf. https://github.com/Microsoft/TypeScript/wiki/JSX#type-checking
+	interface IntrinsicElements {
+		toto: { bar?: boolean }
+	}
+	*/
+
+	/*
+	//JSX.ElementAttributesProperty permet de spécifier le nom de l'objet
+	//qui sera utilisé comme référence pour vérifier le type des propriétés d'un
+	//composant [ElementAttributesProperty ne doit renseigner qu'un
+	//seul nom de stockage des propriétés] (ici, ce sera "props" mais comme déjà défini dans react.d.ts,
+	//inutile de le répéter (sinon duplicate entry error)):
+	interface ElementAttributesProperty {
+		props: Object;
+	}
+	*/
 }
 
 declare module 'react-native' {
-    import React = __React;
+	import React = __React;
 
-    export class Component<P, S> extends React.Component<P,S> {}
-    export class Text extends React.Text {}
-    export class View extends React.View {}
-    export var PropTypes: React.ReactPropTypes;
+	export class Component<P, S> extends React.Component<P,S> {
+	}
+	export class Text extends React.Text {
+	}
+	export class View extends React.View {
+	}
+	export var PropTypes:React.ReactPropTypes;
 
-    export default React;
+	export default React;
 }
 
 /*
-//exemple d.ts avec modules:
-declare module Module1 {
+ //exemple d.ts avec modules:
+ declare module Module1 {
  function toto(): string;
 
  class Blabla {
@@ -154,32 +106,32 @@ declare module Module1 {
 /*
  class ClassJS {
  createString() {
- return "Ayoub ADIB Example Module";
+ return "Ayoub Example Module";
  }
  }
 
  export default ClassJS;
-*/
+ */
 //Nous avons définit nos déclaration typescript de cette manière:
 /*
-declare namespace ExampleNamespace {
-    interface Example {
-        createString(): void;
-    }
+ declare namespace ExampleNamespace {
+ interface Example {
+ createString(): void;
+ }
 
-    interface ExampleFactory {
-        new(): Example;
-        (numberToString: number): Example;
-    }
+ interface ExampleFactory {
+ new(): Example;
+ (numberToString: number): Example;
+ }
 
-    export var ClassJS: ExampleFactory;
-}
+ export var ClassJS: ExampleFactory;
+ }
 
-declare module 'example-module' {
-    import ClassJS = ExampleNamespace.ClassJS;
-    export default ClassJS;
-}
-*/
+ declare module 'example-module' {
+ import ClassJS = ExampleNamespace.ClassJS;
+ export default ClassJS;
+ }
+ */
 /*
  //Example d'utilisation en TS pour générer le bon JS depuis example-module module nodejs:
  import ClassJS from 'example-module';
