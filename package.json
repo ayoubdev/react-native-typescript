@@ -5,9 +5,10 @@
   "author": "Ayoub ADIB <ayoub.development@gmail.com>",
   "licence": "MIT",
   "scripts": {
-    "postinstall": "npm run ts:config && npm run ts:definition",
+    "postinstall": "npm run ts:init",
     "gulp:ts:build": "gulp ts:build --rootDir .",
     "gulp:ts:watch": "gulp ts:watch --rootDir .",
+	"ts:init": "npm run ts:config && npm run ts:definition",
     "ts:config": "tsc --init --module es2015 --t ES6 --allowJs --jsx react --noImplicitAny --noImplicitReturns --preserveConstEnums --experimentalDecorators --removeComments --sourceMap",
     "ts:definition": "tsd init && tsd install react --save",
     "ts:build": "tsc -p ./ --outDir ./",
